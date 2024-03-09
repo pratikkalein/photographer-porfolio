@@ -39,13 +39,13 @@ export default function Header() {
           </button>
         </div>
         <div
-          className={`w-full block lg:flex  lg:w-auto space-x-4 bg-slate-200 lg:bg-transparent  ${
+          className={`w-full block  lg:flex lg:w-auto lg:space-x-4  lg:bg-transparent  ${
             isOpen ? "block" : "hidden"
           }`}
         >
           {navs.map((nav) => (
             <Link
-              className="block lg:inline-block hover:font-bold"
+              className="block mt-1 lg:inline-block hover:font-bold bg-gray-900 text-white px-2 py-1 rounded"
               key={nav.href}
               href={nav.href}
             >
