@@ -9,20 +9,22 @@ function AdminLogin() {
   const router = useRouter();
   const handleForm = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     const { result, error } = await signIn(email, password);
 
     if (error) {
-      return console.log(error);
+      if ((error as any).code === "auth/invalid-credential") {
+        alert("Invalid credentials");
+      }
     }
 
-    // else successful
-    console.log(result);
-    return router.push("/dashboard");
+    if (result) {
+      router.push("/dashboard");
+    }
   };
+
   return (
     <div className="flex justify-center items-center h-auto">
-      <div className="bg-gray-900 text-white p-8 rounded-md lg:min-w-96">
+      <div className="bg-gray-900 text-white p-8 rounded-md min-w-full sm:min-w-[500px]">
         <h1 className="font-bold text-2xl mb-4">Admin Login</h1>
         <form onSubmit={handleForm}>
           <label htmlFor="email" className="block py-2">

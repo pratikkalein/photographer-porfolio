@@ -3,21 +3,23 @@
 import Link from "next/link";
 import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
   const navs = [
     {
-      href: "/street",
+      href: "/photos/street",
       label: "Street",
     },
     {
-      href: `/commercial`,
+      href: "/photos/commercial",
       label: "Commercial",
     },
     {
-      href: "/food",
+      href: "/photos/food",
       label: "Food",
     },
     {
@@ -28,7 +30,7 @@ export default function Header() {
 
   return (
     <nav className="flex items-center justify-between flex-wrap py-6">
-      <h1 className="font-bold text-xl">Piyush Gogawale</h1>
+      <h1 className="font-bold text-2xl">Piyush Gogawale</h1>
       <div className="block lg:hidden">
         <button
           onClick={() => setIsOpen(!isOpen)}
@@ -42,15 +44,22 @@ export default function Header() {
           isOpen ? "block" : "hidden"
         }`}
       >
-        {navs.map((nav) => (
-          <Link
-            className="block mt-1 lg:inline-block hover:font-bold bg-gray-900 lg:bg-white text-white lg:text-black px-2 py-1 rounded"
-            key={nav.href}
-            href={nav.href}
-          >
-            {nav.label}
-          </Link>
-        ))}
+        {navs.map((nav) => {
+          const isActive = pathname.startsWith(nav.href);
+          console.log(isActive, pathname, nav.href);
+
+          return (
+            <Link
+              className={`${
+                isActive ? "font-bold" : ""
+              } block mt-1 lg:inline-block hover:font-bold bg-gray-900 lg:bg-white text-white lg:text-black px-2 py-1 rounded`}
+              key={nav.href}
+              href={nav.href}
+            >
+              {nav.label}
+            </Link>
+          );
+        })}
       </div>
     </nav>
   );
